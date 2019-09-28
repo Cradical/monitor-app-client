@@ -11,7 +11,10 @@ function App() {
       <NavBar />
       <ResponderList />
       <div>
-        <GoogleMap />
+        <GoogleMap
+          center={{ lat: 48.1, lng: -122.0 }}
+          markers={[{ lat: 48.0, lng: -122.0 }, { lat: 48.1, lng: -122.0 }]}
+        />
       </div>
     </div>
   );
