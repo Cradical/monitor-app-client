@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class NavBar extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className='nav-bar'>
         <Navbar color='light' light expand='md'>
           <NavbarBrand href='/'>Heart Link</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
@@ -48,8 +49,12 @@ export default class NavBar extends React.Component {
                   Options
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
+                  <DropdownItem>
+                    <Link to='/map'>Map</Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to='/team-member-view'>Team Member View</Link>
+                  </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>Reset</DropdownItem>
                 </DropdownMenu>

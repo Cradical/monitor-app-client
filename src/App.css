@@ -1,5 +1,23 @@
 .App {
   text-align: center;
+  display: grid;
+  grid-template:
+    'nav nav'
+    'list map';
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-bar {
+  grid-area: nav;
+}
+
+.responder-list {
+  grid-area: list;
+  padding: 15px;
 }
 
 .App-logo {

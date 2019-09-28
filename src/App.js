@@ -1,20 +1,23 @@
-import React from "react";
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import "./App.css";
-import NavBar from "./components/NavBar";
-import ResponderList from "./components/ResponderList";
-import GoogleMap from "./components/GoogleMap";
+import './App.css'
+import NavBar from './components/NavBar'
+import MenuBar from './components/MenuBard'
+import MainDisplay from './components/MainDisplay'
 
 function App() {
   return (
-    <div className='App'>
-      <NavBar />
-      <ResponderList />
-      <div>
-        <GoogleMap />
+    <Router>
+      <div className='App'>
+        <NavBar />
+        <div className='main-container'>
+          <MenuBar />
+          <MainDisplay />
+        </div>
       </div>
-    </div>
-  );
+    </Router>
+  )
 }
 
-export default App;
+export default App
