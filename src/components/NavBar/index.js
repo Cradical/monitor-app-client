@@ -31,7 +31,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Navbar color='light' light expand='md'>
-          <NavbarBrand href='/'>Team View</NavbarBrand>
+          <NavbarBrand href='/'>Heart Link</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
