@@ -8,6 +8,13 @@ const mapStyles = {
   height: '350px',
 }
 
+const displayMarkers = markers => {
+  return markers.map(marker => {
+    const { lat, lng } = marker;
+    return <Marker position={{ lat, lng }} />;
+  });
+};
+
 const MapContainer = props => {
   return (
     <Map
@@ -16,7 +23,7 @@ const MapContainer = props => {
       style={mapStyles}
       initialCenter={props.center}
     >
-      <Marker position={{ lat: 48.0, lng: -122.0 }} />
+      {displayMarkers(props.markers)}
     </Map>
   )
 }

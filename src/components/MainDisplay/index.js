@@ -11,7 +11,10 @@ export default function MainDisplay() {
       <h2>Main Display Container</h2>
       <Switch>
         <Route path='/map'>
-          <GoogleMap />
+          <GoogleMap
+            center={{ lat: 48.1, lng: -122.0 }}
+            markers={[{ lat: 48.0, lng: -122.0 }, { lat: 48.1, lng: -122.0 }]}
+          />
         </Route>
         <Route path='/team-member-view'>
           <TeamMemberView />
