@@ -3,6 +3,8 @@ import { Button, Progress, Toast, ToastBody, ToastHeader } from "reactstrap";
 import { Line } from "react-chartjs-2";
 
 import "./style.css";
+
+import GoogleMap from "../GoogleMap";
 import EvacModal from "../EvacModal/index";
 
 import { CrewContext } from "../../App";
@@ -88,8 +90,8 @@ export default function TeamMemberView(props) {
           let latest_hr = 100;
           let latest_bp_d = 120;
           let latest_bp_s = 90;
-          let latest_lat = "";
-          let latest_lng = "";
+          let latest_lat = null;
+          let latest_lng = null;
           let latest_air_supply = 15;
           let latest_env_temp = "";
           let latest_internal_temp = 120;
@@ -187,17 +189,32 @@ export default function TeamMemberView(props) {
                   <div className='equipment-metrics air-supply'>
                     <h4>Equipment Metrics</h4>
                     <Toast>
-                      <ToastHeader icon={airSupplyStatus(latest_air_supply)}>Air Supply</ToastHeader>
+                      <ToastHeader icon={airSupplyStatus(latest_air_supply)}>
+                        Air Supply
+                      </ToastHeader>
                       <ToastBody>
                         <span>
                           <strong>{latest_air_supply}</strong>
                         </span>
-                        <Progress striped color={airSupplyStatus(latest_air_supply)} value={latest_air_supply} />
+                        <Progress
+                          striped
+                          color={airSupplyStatus(latest_air_supply)}
+                          value={latest_air_supply}
+                        />
                       </ToastBody>
                     </Toast>
                   </div>
                 </div>
               </div>
+              <div className='map'>
+                {latest_lat && latest_lng && (
+                  <GoogleMap
+                    center={{ lat: latest_lat, lng: latest_lng }}
+                    markers={[{ lat: latest_lat, lng: latest_lng }]}
+                  />
+                )}
+              </div>
+
               <Button
                 color='danger'
                 size='lg'
