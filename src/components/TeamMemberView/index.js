@@ -27,15 +27,6 @@ const Chart = props => {
 
 const image = require('../../assets/placeholder-profile_3.png')
 
-const handleEvac = () => {
-  console.log('Button Clicked')
-  return (
-    <div>
-      <EvacModal />
-    </div>
-  )
-}
-
 export default class TeamMemberView extends React.Component {
   constructor(props) {
     super(props)
@@ -47,12 +38,14 @@ export default class TeamMemberView extends React.Component {
   }
 
   toggle() {
+    console.log('toggle modal')
     this.setState(prevState => ({
       modal: !prevState.modal,
     }))
   }
 
   render() {
+    console.log('modal state: ', this.state.modal)
     return (
       <div className='team-member-container'>
         <h2 className='title'>Team Member Details</h2>
@@ -110,9 +103,10 @@ export default class TeamMemberView extends React.Component {
             </div>
           </div>
         </div>
-        <Button color='danger' size='lg' block onClick={handleEvac}>
+        <Button color='danger' size='lg' block onClick={this.toggle}>
           <strong>Evacuate Team Member</strong>
         </Button>
+        <EvacModal isOpen={this.state.modal} toggle={this.toggle} />
       </div>
     )
   }

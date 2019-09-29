@@ -17,6 +17,11 @@ class EvacModal extends React.Component {
     }))
   }
 
+  handleEvacRequest() {
+    this.toggle()
+    window.alert('Evacuation Request Sent!')
+  }
+
   render() {
     const externalCloseBtn = (
       <button
@@ -29,26 +34,23 @@ class EvacModal extends React.Component {
     )
     return (
       <div>
-        <Button color='danger' onClick={this.toggle}>
-          {this.props.buttonLabel}
-        </Button>
         <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
+          isOpen={this.props.isOpen}
+          toggle={this.props.toggle}
           className={this.props.className}
           external={externalCloseBtn}
         >
-          <ModalHeader>Modal title</ModalHeader>
+          <ModalHeader>Evacuation Order</ModalHeader>
           <ModalBody>
-            <b>Look at the top right of the page/viewport!</b>
+            <b>Evacuate Current Team Member!</b>
             <br />
-            Team Member is being evacuated!
+            Keep track of their location and prepare for medical treatment.
           </ModalBody>
           <ModalFooter>
-            <Button color='primary' onClick={this.toggle}>
-              Do Something
+            <Button color='primary' onClick={this.props.toggle}>
+              Send Evac Order
             </Button>{' '}
-            <Button color='secondary' onClick={this.toggle}>
+            <Button color='secondary' onClick={this.props.toggle}>
               Cancel
             </Button>
           </ModalFooter>
