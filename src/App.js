@@ -5,7 +5,7 @@ import _ from "lodash";
 
 import "./App.css";
 import NavBar from "./components/NavBar";
-import MenuBar from "./components/MenuBard";
+import MenuBar from "./components/MenuBar";
 import MainDisplay from "./components/MainDisplay";
 import { __makeTemplateObject } from "tslib";
 
@@ -34,19 +34,40 @@ const reducer = (state, action) => {
     case UPDATE_CREW: {
       const { payload } = action;
       //Parse the JSON object
-      const payloadJSON = payload.map(member => {
-        return JSON.parse(member);
-      });
+      const payloadJSON = payload
+        ? payload.map(member => {
+            return JSON.parse(member);
+          })
+        : [];
 
       //Make a new crew array with all of the crew data
       const crew = payloadJSON.map(member => {
-        const { UID, TS, HR, BP_D, FNAME, LNAME } = member;
+        const {
+          UID,
+          TS,
+          HR,
+          BP_D,
+          BP_S,
+          LAT,
+          LON,
+          A_SUP,
+          ENV_TEMP,
+          IN_TEMP,
+          FNAME,
+          LNAME
+        } = member;
         if (state.crew[UID]) {
           //If Crew member already exists concat the new data to the array
           return {
             ...state.crew[UID],
             hr: state.crew[UID].hr.concat({ x: TS, y: HR }),
-            bp_d: state.crew[UID].bp_d.concat({ x: TS, y: BP_D })
+            bp_d: state.crew[UID].bp_d.concat({ x: TS, y: BP_D }),
+            bp_s: state.crew[UID].bp_s.concat({ x: TS, y: BP_S }),
+            lat: state.crew[UID].lat.concat({ x: TS, y: LAT }),
+            lng: state.crew[UID].lat.concat({ x: TS, y: LON }),
+            air_supply: state.crew[UID].lat.concat({ x: TS, y: A_SUP }),
+            env_temp: state.crew[UID].lat.concat({ x: TS, y: ENV_TEMP }),
+            internal_temp: state.crew[UID].lat.concat({ x: TS, y: IN_TEMP })
           };
         } else {
           //If the crew member does not exist, start a new record.
@@ -55,13 +76,20 @@ const reducer = (state, action) => {
             fname: FNAME,
             lname: LNAME,
             hr: [{ x: TS, y: HR }],
-            bp_d: [{ x: TS, y: BP_D }]
+            bp_d: [{ x: TS, y: BP_D }],
+            bp_s: [{ x: TS, y: BP_S }],
+            lat: [{ x: TS, y: LAT }],
+            lng: [{ x: TS, y: LON }],
+            air_supply: [{ x: TS, y: A_SUP }],
+            env_temp: [{ x: TS, y: ENV_TEMP }],
+            internal_temp: [{ x: TS, y: IN_TEMP }]
           };
         }
       });
 
       //Return the new state by maping the the UID of the crew member to be used as params
       const newState = { crew: _.mapKeys(crew, "uid") };
+      console.log(newState.crew);
       return newState;
     }
 
@@ -78,11 +106,16 @@ function App() {
     const interval = setInterval(() => {
       setSeconds(seconds => seconds + 1);
       socket.emit("request-crew-update");
-      console.log("requesting crew update");
-      const updateAction = { type: UPDATE_CREW, payload: data };
-      dispatch(updateAction);
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    socket.on("crew-update", payload => {
+      const updateAction = { type: UPDATE_CREW, payload };
+      console.log(data);
+      dispatch(updateAction);
+    });
   }, []);
 
   return (
@@ -91,13 +124,11 @@ function App() {
         <NavBar />
         <div className='main-container'>
           <CrewContext.Provider value={state.crew}>
-            <MenuBar crew={state.crew}/>
+            <MenuBar crew={state.crew} />
             <Switch>
-              <Route exact path='/' component={Home} />
-              <Route
-                path='/member/:id'
-                component={TeamMemberView}
-              />
+              <Route exact path='/' component={TeamMemberView} />
+              <Route path='/member/:id' component={TeamMemberView} />
+              <Route path='/membertest' component={TeamMemberView} />
             </Switch>
           </CrewContext.Provider>
         </div>

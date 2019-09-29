@@ -101,7 +101,6 @@ export default function TeamMemberView() {
             >
               <strong>Evacuate Team Member</strong>
             </Button>
-            {console.log(modal)}
             <EvacModal isOpen={modal} toggle={() => setModal(false)} />
           </>
         )}
