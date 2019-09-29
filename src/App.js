@@ -26,7 +26,7 @@ const data = [
 ]
 
 const initialState = {
-  crew: data,
+  crew: {},
 }
 
 const reducer = (state, action) => {
