@@ -5,10 +5,12 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "google-maps-react": "^2.0.2",
+    "lodash": "^4.17.15",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
     "react-scripts": "3.1.2",
-    "reactstrap": "^8.0.1"
+    "reactstrap": "^8.0.1",
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
