@@ -14,6 +14,8 @@ import {
 } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
+import logo from '../../assets/logo.png'
+
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props)
@@ -28,11 +30,12 @@ export default class NavBar extends React.Component {
       isOpen: !this.state.isOpen,
     })
   }
+
   render() {
     return (
       <div className='nav-bar'>
         <Navbar color='light' light expand='md'>
-          <NavbarBrand href='/'>Heart Link</NavbarBrand>
+          <img src={logo} style={{ height: 75, width: 75, margin: 0 }} />
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>

@@ -1,0 +1,28 @@
+.profile-details {
+  width: 30%;
+}
+
+.vital {
+  padding: 5px;
+  margin: 5px;
+  width: 20vw;
+}
+
+.metric-display {
+  display: flex;
+  width: 100%;
+}
+
+.equipment-metrics {
+  width: 20vw;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.chart-container {
+  height: 30vh;
+  width: 30vw;
+}
