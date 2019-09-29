@@ -1,0 +1,4 @@
+.whole-team-view {
+  display: flex;
+  flex-wrap: wrap;
+}
