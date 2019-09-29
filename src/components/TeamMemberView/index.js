@@ -34,15 +34,10 @@ export default function TeamMemberView() {
         <div className='profile-details'>
           <h3>Team Member Info</h3>
           <img src={image} />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <h6>Team: </h6>
+          <p>Echo 6</p>
+          <h6>Specialty:</h6>
+          <p>Tree Cutter</p>
         </div>
         <div className='metric-display'>
           <div className='vitals'>
@@ -89,8 +84,6 @@ export default function TeamMemberView() {
           </div>
         </div>
       </div>
-
-      <Chart />
     </div>
   )
 }

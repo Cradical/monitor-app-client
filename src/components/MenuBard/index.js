@@ -9,7 +9,7 @@ export default class MenuBar extends React.Component {
   render() {
     return (
       <div className='responder-list'>
-        <h3>Menu Options</h3>
+        <h2>Menu Options</h2>
         <ListGroup>
           <ListGroupItem active tag='button' action>
             Screen Options

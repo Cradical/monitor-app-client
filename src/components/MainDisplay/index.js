@@ -8,7 +8,6 @@ import TeamMemberView from '../TeamMemberView'
 export default function MainDisplay() {
   return (
     <div className='display-container'>
-      <h2>Main Display Container</h2>
       <Switch>
         <Route path='/map'>
           <GoogleMap

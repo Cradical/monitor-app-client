@@ -1,3 +1,11 @@
+.team-member-container {
+  padding: 15px;
+}
+
+.title {
+  background-color: lightgray;
+}
+
 .profile-details {
   width: 30%;
 }

@@ -4,16 +4,16 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
 import './style.css'
 
 const mapStyles = {
-  width: '350px',
-  height: '350px',
+  width: '75vw',
+  height: '75vh',
 }
 
 const displayMarkers = markers => {
   return markers.map(marker => {
-    const { lat, lng } = marker;
-    return <Marker position={{ lat, lng }} />;
-  });
-};
+    const { lat, lng } = marker
+    return <Marker position={{ lat, lng }} />
+  })
+}
 
 const MapContainer = props => {
   return (
