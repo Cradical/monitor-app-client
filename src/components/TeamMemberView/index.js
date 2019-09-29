@@ -32,6 +32,43 @@ const image = require("../../assets/placeholder-profile_3.png");
 export default function TeamMemberView(props) {
   const { id } = props.match.params;
   const [modal, setModal] = useState(false);
+
+  const hrStatus = hr => {
+    if (hr > 200) {
+      return "danger";
+    }
+
+    if (hr > 100) {
+      return "warning";
+    }
+
+    return "success";
+  };
+
+  const internalTempStatus = temp => {
+    if (temp > 110) {
+      return "danger";
+    }
+
+    if (temp > 100) {
+      return "warning";
+    }
+
+    return "success";
+  };
+
+  const airSupplyStatus = air => {
+    if (air < 20) {
+      return "danger";
+    }
+
+    if (air > 100) {
+      return "warning";
+    }
+
+    return "success";
+  };
+
   return (
     <div className='team-member-container'>
       <CrewContext.Consumer>
@@ -48,14 +85,14 @@ export default function TeamMemberView(props) {
           let env_temp = null;
           let internal_temp = null;
 
-          let latest_hr = '';
-          let latest_bp_d = '';
-          let latest_bp_s = '';
-          let latest_lat = '';
-          let latest_lng = '';
-          let latest_air_supply = '';
-          let latest_env_temp = '';
-          let latest_internal_temp = '';
+          let latest_hr = 100;
+          let latest_bp_d = 120;
+          let latest_bp_s = 90;
+          let latest_lat = "";
+          let latest_lng = "";
+          let latest_air_supply = 15;
+          let latest_env_temp = "";
+          let latest_internal_temp = 120;
 
           if (context) {
             if (context[id]) {
@@ -71,15 +108,14 @@ export default function TeamMemberView(props) {
               env_temp = context[id].env_temp;
               internal_temp = context[id].internal_temp;
 
-              latest_hr = hr[hr.length - 1];
-              latest_bp_d = bp_d[bp_d.length - 1];
-              latest_bp_s = bp_s[bp_s.length - 1];
-              latest_lat = lat[lat.length - 1];
-              latest_lng = lng[lng.length - 1];
-              latest_air_supply = air_supply[air_supply.length - 1];
-              latest_env_temp = env_temp[env_temp.length - 1];
-              latest_internal_temp =
-                internal_temp[internal_temp.length - 1];
+              latest_hr = hr[hr.length - 1].y;
+              latest_bp_d = bp_d[bp_d.length - 1].y;
+              latest_bp_s = bp_s[bp_s.length - 1].y;
+              latest_lat = lat[lat.length - 1].y;
+              latest_lng = lng[lng.length - 1].y;
+              latest_air_supply = air_supply[air_supply.length - 1].y;
+              latest_env_temp = env_temp[env_temp.length - 1].y;
+              latest_internal_temp = internal_temp[internal_temp.length - 1].y;
             }
           }
 
@@ -99,10 +135,16 @@ export default function TeamMemberView(props) {
                     <h4>Vitals</h4>
                     <div className='vital heart-rate'>
                       <Toast>
-                        <ToastHeader icon='success'>❤️ Heart Rate</ToastHeader>
+                        <ToastHeader icon={hrStatus(latest_hr)}>
+                          ❤️ Heart Rate
+                        </ToastHeader>
                         <ToastBody>
-                          {latest_hr.y} <strong>BPM</strong>
-                          <Progress striped color='success' value={75} />
+                          {latest_hr} <strong>BPM</strong>
+                          <Progress
+                            striped
+                            color={hrStatus(latest_hr)}
+                            value={latest_hr / 2}
+                          />
                         </ToastBody>
                       </Toast>
                     </div>
@@ -112,17 +154,32 @@ export default function TeamMemberView(props) {
                           ⭕️ Blood Pressure
                         </ToastHeader>
                         <ToastBody>
-                          90/130 <strong>sol/dia</strong>
-                          <Progress striped color='warning' value={75} />
+                          {`${latest_bp_s}/${latest_bp_d}`}{" "}
+                          <strong>sol/dia</strong>
+                          <Progress
+                            striped
+                            color='warning'
+                            value={latest_bp_s / 2}
+                          />
                         </ToastBody>
                       </Toast>
                     </div>
                     <div className='vital body-temp'>
                       <Toast>
-                        <ToastHeader icon='danger'>🌡 Body Temp</ToastHeader>
+                        <ToastHeader
+                          icon={internalTempStatus(latest_internal_temp)}
+                        >
+                          🌡 Body Temp
+                        </ToastHeader>
                         <ToastBody>
-                          102 <strong>degrees (F)</strong>
-                          <Progress striped color='danger' value={85} />
+                          {latest_internal_temp} <strong>degrees (F)</strong>
+                          <Progress
+                            striped
+                            color={internalTempStatus(latest_internal_temp)}
+                            value={
+                              ((latest_internal_temp - 96) / (115 - 96)) * 100
+                            }
+                          />
                         </ToastBody>
                       </Toast>
                     </div>
@@ -130,12 +187,12 @@ export default function TeamMemberView(props) {
                   <div className='equipment-metrics air-supply'>
                     <h4>Equipment Metrics</h4>
                     <Toast>
-                      <ToastHeader icon='success'>Air Supply</ToastHeader>
+                      <ToastHeader icon={airSupplyStatus(latest_air_supply)}>Air Supply</ToastHeader>
                       <ToastBody>
                         <span>
-                          <strong>80%</strong>
+                          <strong>{latest_air_supply}</strong>
                         </span>
-                        <Progress striped color='success' value={80} />
+                        <Progress striped color={airSupplyStatus(latest_air_supply)} value={latest_air_supply} />
                       </ToastBody>
                     </Toast>
                   </div>
