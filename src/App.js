@@ -1,13 +1,16 @@
 import React, { useReducer, useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import io from "socket.io-client";
 import _ from "lodash";
 
 import "./App.css";
 import NavBar from "./components/NavBar";
-import MenuBar from './components/MenuBard'
-import MainDisplay from './components/MainDisplay'
+import MenuBar from "./components/MenuBard";
+import MainDisplay from "./components/MainDisplay";
 import { __makeTemplateObject } from "tslib";
+
+import Home from "./components/Home";
+import TeamMemberView from "./components/TeamMemberView";
 
 const UPDATE_CREW = "UPDATE_CREW";
 const socket = io("http://localhost:5000");
@@ -15,6 +18,8 @@ const socket = io("http://localhost:5000");
 const initialState = {
   crew: {}
 };
+
+export const CrewContext = React.createContext("crew");
 
 const data = [
   '{"UID": 1, "TS": "2019-09-28 14:18:28.614", "HR": 80, "BP_D": 0, "BP_S": 0, "LAT": 0.0, "LON": 0.0, "A_SUP": 0, "ENV_TEMP": 0, "IN_TEMP": 0, "FNAME": "JIM", "LNAME": "ONE"}',
@@ -76,7 +81,7 @@ function App() {
       console.log("requesting crew update");
       const updateAction = { type: UPDATE_CREW, payload: data };
       dispatch(updateAction);
-    }, 5000);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -85,12 +90,20 @@ function App() {
       <div className='App'>
         <NavBar />
         <div className='main-container'>
-          <MenuBar />
-          <MainDisplay />
+          <CrewContext.Provider value={state.crew}>
+            <MenuBar crew={state.crew}/>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route
+                path='/member/:id'
+                component={TeamMemberView}
+              />
+            </Switch>
+          </CrewContext.Provider>
         </div>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

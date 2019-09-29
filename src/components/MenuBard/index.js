@@ -1,12 +1,28 @@
-import React from 'react'
-import { ListGroup, ListGroupItem } from 'reactstrap'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { ListGroup, ListGroupItem } from "reactstrap";
+import { Link } from "react-router-dom";
+import _ from "lodash";
 
-import './style.css'
+import "./style.css";
 
 export default class MenuBar extends React.Component {
   componentDidMount() {}
+
   render() {
+    const { crew } = this.props;
+
+    const crewMemberLinks = crew => (
+      <>
+        {_.map(crew, member => (
+          <NavLink key={member.uid} to={`/member/${member.uid}`}>
+            <ListGroupItem tag='button' action >
+              {`${member.fname} ${member.lname}`}
+            </ListGroupItem>
+          </NavLink>
+        ))}
+      </>
+    );
     return (
       <div className='responder-list'>
         <h2>Menu Options</h2>
@@ -25,17 +41,9 @@ export default class MenuBar extends React.Component {
           <ListGroupItem tag='button' action>
             <Link to='team-member-view'>Team Member View test</Link>
           </ListGroupItem>
-          <ListGroupItem tag='button' action>
-            Mark
-          </ListGroupItem>
-          <ListGroupItem tag='button' action>
-            Carey
-          </ListGroupItem>
-          <ListGroupItem disabled tag='button' action>
-            Lisa
-          </ListGroupItem>
+          {crewMemberLinks(crew)}
         </ListGroup>
       </div>
-    )
+    );
   }
 }
