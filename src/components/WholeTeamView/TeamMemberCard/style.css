@@ -1,0 +1,11 @@
+.card {
+  width: 15vw;
+}
+
+.status-pill {
+  width: 125px;
+  height: 25px;
+  padding-top: 5px;
+  margin-top: 7px;
+  font-weight: bold;
+}
