@@ -10,10 +10,10 @@ const mapStyles = {
 
 const displayMarkers = markers => {
   return markers.map(marker => {
-    const { lat, lng } = marker
-    return <Marker position={{ lat, lng }} />
-  })
-}
+    const { lat, lng } = marker;
+    return <Marker key={`${lat}-${lng}`} position={{ lat, lng }} />;
+  });
+};
 
 const MapContainer = props => {
   return (
