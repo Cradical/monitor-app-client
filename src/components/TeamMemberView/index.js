@@ -9,22 +9,34 @@ import EvacModal from "../EvacModal/index";
 
 import { CrewContext } from "../../App";
 
-const data = {
+const data = data => ({
   labels: ["9:00:00am", "9:00:15am", "9:00:30am", "9:00:45am", "9:01:00am"],
   datasets: [
     {
       label: "Heart Rate",
       borderColor: "rgb(255, 99, 132)",
-      data: [76, 89, 95, 99, 102],
+      data: data,
       fill: false
     }
-  ]
-};
+  ],
+  options: {
+    scales: {
+      xAxes: [
+        {
+          type: "time",
+          time: {
+            unit: "minute"
+          }
+        }
+      ]
+    }
+  }
+});
 
 const Chart = props => {
   return (
     <div className='chart-container'>
-      <Line data={data} />
+      <Line data={data(props)} />
     </div>
   );
 };
@@ -215,6 +227,9 @@ export default function TeamMemberView(props) {
                 )}
               </div>
 
+              {hr && Chart(hr)}
+              {console.log(hr)}
+
               <Button
                 color='danger'
                 size='lg'
@@ -223,6 +238,7 @@ export default function TeamMemberView(props) {
               >
                 <strong>Evacuate Team Member</strong>
               </Button>
+
               <EvacModal isOpen={modal} toggle={() => setModal(false)} />
             </>
           );

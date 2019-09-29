@@ -26,7 +26,7 @@ const data = [
 ]
 
 const initialState = {
-  crew: data,
+  crew: {},
 }
 
 const reducer = (state, action) => {
@@ -54,36 +54,37 @@ const reducer = (state, action) => {
           ENV_TEMP,
           IN_TEMP,
           FNAME,
-          LNAME,
-        } = member
+          LNAME
+        } = member;
+        const ts_date = new Date(TS);
         if (state.crew[UID]) {
           //If Crew member already exists concat the new data to the array
           return {
             ...state.crew[UID],
-            hr: state.crew[UID].hr.concat({ x: TS, y: HR }),
-            bp_d: state.crew[UID].bp_d.concat({ x: TS, y: BP_D }),
-            bp_s: state.crew[UID].bp_s.concat({ x: TS, y: BP_S }),
-            lat: state.crew[UID].lat.concat({ x: TS, y: LAT }),
-            lng: state.crew[UID].lat.concat({ x: TS, y: LON }),
-            air_supply: state.crew[UID].lat.concat({ x: TS, y: A_SUP }),
-            env_temp: state.crew[UID].lat.concat({ x: TS, y: ENV_TEMP }),
-            internal_temp: state.crew[UID].lat.concat({ x: TS, y: IN_TEMP }),
-          }
+            hr: state.crew[UID].hr.concat({ x: ts_date, y: HR }),
+            bp_d: state.crew[UID].bp_d.concat({ x: ts_date, y: BP_D }),
+            bp_s: state.crew[UID].bp_s.concat({ x: ts_date, y: BP_S }),
+            lat: state.crew[UID].lat.concat({ x: ts_date, y: LAT }),
+            lng: state.crew[UID].lat.concat({ x: ts_date, y: LON }),
+            air_supply: state.crew[UID].lat.concat({ x: ts_date, y: A_SUP }),
+            env_temp: state.crew[UID].lat.concat({ x: ts_date, y: ENV_TEMP }),
+            internal_temp: state.crew[UID].lat.concat({ x: ts_date, y: IN_TEMP })
+          };
         } else {
           //If the crew member does not exist, start a new record.
           return {
             uid: UID,
             fname: FNAME,
             lname: LNAME,
-            hr: [{ x: TS, y: HR }],
-            bp_d: [{ x: TS, y: BP_D }],
-            bp_s: [{ x: TS, y: BP_S }],
-            lat: [{ x: TS, y: LAT }],
-            lng: [{ x: TS, y: LON }],
-            air_supply: [{ x: TS, y: A_SUP }],
-            env_temp: [{ x: TS, y: ENV_TEMP }],
-            internal_temp: [{ x: TS, y: IN_TEMP }],
-          }
+            hr: [{ x: ts_date, y: HR }],
+            bp_d: [{ x: ts_date, y: BP_D }],
+            bp_s: [{ x: ts_date, y: BP_S }],
+            lat: [{ x: ts_date, y: LAT }],
+            lng: [{ x: ts_date, y: LON }],
+            air_supply: [{ x: ts_date, y: A_SUP }],
+            env_temp: [{ x: ts_date, y: ENV_TEMP }],
+            internal_temp: [{ x: ts_date, y: IN_TEMP }]
+          };
         }
       })
 
@@ -106,7 +107,7 @@ function App() {
     const interval = setInterval(() => {
       setSeconds(seconds => seconds + 1)
       socket.emit('request-crew-update')
-    }, 100000000)
+    }, 1000)
     return () => clearInterval(interval)
   }, [])
 

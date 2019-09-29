@@ -32,10 +32,12 @@
 
 .chart-container {
   height: 30vh;
-  width: 30vw;
+  width: 50vw;
+  margin: 5em;
 }
 
 .map {
-  height:40vh;
-  margin:1em;
+  height: 40vh;
+  width: 50vw;
+  margin: 1em;
 }

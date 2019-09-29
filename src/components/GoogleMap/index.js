@@ -4,7 +4,7 @@ import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import "./style.css";
 
 const mapStyles = {
-  width: "50%",
+  width: "50vh",
   height: "40vh"
 };
 
