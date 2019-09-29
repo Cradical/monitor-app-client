@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import io from "socket.io-client";
 import _ from "lodash";
 
@@ -6,6 +7,8 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import ResponderList from "./components/ResponderList";
 import GoogleMap from "./components/GoogleMap";
+import MenuBar from './components/MenuBard'
+import MainDisplay from './components/MainDisplay'
 import { __makeTemplateObject } from "tslib";
 
 const UPDATE_CREW = "UPDATE_CREW";
@@ -80,25 +83,16 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
-      <NavBar />
-      <ResponderList />
-      <div>This mission has been going on for {seconds} seconds.</div>
-      {_.map(state.crew, member => (
-        <div>
-          <div key={member.uid}>{member.uid}</div>
-          <div key={`${member.uid} ${member.fname}`}>{member.fname}</div>
-          <div key={`${member.uid} ${member.lname}`}>{member.lname}</div>
+    <Router>
+      <div className='App'>
+        <NavBar />
+        <div className='main-container'>
+          <MenuBar />
+          <MainDisplay />
         </div>
-      ))}
-      <div>
-        <GoogleMap
-          center={{ lat: 48.1, lng: -122.0 }}
-          markers={[{ lat: 48.0, lng: -122.0 }, { lat: 48.1, lng: -122.0 }]}
-        />
       </div>
-    </div>
-  );
+    </Router>
+  )
 }
 
-export default App;
+export default App
