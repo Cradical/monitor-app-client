@@ -5,8 +5,6 @@ import _ from "lodash";
 
 import "./App.css";
 import NavBar from "./components/NavBar";
-import ResponderList from "./components/ResponderList";
-import GoogleMap from "./components/GoogleMap";
 import MenuBar from './components/MenuBard'
 import MainDisplay from './components/MainDisplay'
 import { __makeTemplateObject } from "tslib";
